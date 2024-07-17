@@ -30,7 +30,7 @@ public class JIRAStoryHelper {
 
         System.out.println(payload.toString());
 
-        String API_TOKEN = "ATATT3xFfGF0KCNUUXJDAzGKt6-nenVUdgw7ShHyJuniACwANzWVhYwmhnMLgsozk1QONuUSfmJAyUUnMPhCrULWLUoErEKQp4ZE8c8BtUEAPPWzJCFaKSWqEeIVkjOu5zQJN6Kjab9IUhdkmclhLa9KlLnfKrAlMtl_eHXFQ5afAUF_Kb-sudQ=A527D5E6";
+        String API_TOKEN = "add_your_jira_token";
         //HttpsResponse<JsonNode>  = Unirest.
        HttpResponse<JsonNode> response = Unirest.post("https://shyamramath.atlassian.net//rest/api/2/issue/")
                 .basicAuth("shyam.ramath@gmail.com",API_TOKEN)
