@@ -1,0 +1,37 @@
+<!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
+<idea-plugin>
+  <!-- Unique identifier of the plugin. It should be FQN. It cannot be changed between the plugin versions. -->
+  <id>com.escuela.plugin</id>
+
+  <!-- Public plugin name should be written in Title Case.
+       Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-name -->
+<!--  <name>ShyamsIdeaPlugin</name>-->
+  <name>JIRAAutomationIdeaPlugin</name>
+  <!-- A displayed Vendor name or Organization ID displayed on the Plugins Page. -->
+  <vendor email="escuela.tech@gmail.com" url="https://www.escuela.com">escuela</vendor>
+  <!-- Description of the plugin displayed on the Plugin Page and IDE Plugin Manager.
+       Simple HTML elements (text formatting, paragraphs, and lists) can be added inside of <![CDATA[ ]]> tag.
+       Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-description -->
+  <description><![CDATA[
+   Plugin for JIRA Story Creation using ChatGPT API
+  ]]></description>
+  <!-- Product and plugin compatibility requirements.
+       Read more: https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
+  <depends>com.intellij.modules.platform</depends>
+  <!-- Extension points defined by the plugin.
+       Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
+  <extensions defaultExtensionNs="com.intellij">
+  </extensions>
+  <actions>
+    <group id="MyIdeaDemo.HelloAction" text="JIRAChatGPT" description="Simple Description ">
+<!--      <add-to-group group-id="MainMenu" anchor="last"> JIRA ChatGPT</add-to-group>-->
+      <add-to-group group-id="ToolsMenu" anchor="last"> JIRA ChatGPT</add-to-group>
+
+      <action class="com.escuela.plugin.HelloAction" id="MyIdeaDemo.Actions.HelloAction"  text="JIRA integration" />
+    </group>
+<!--    <group id="MyIdeaDemo.HelloAction2" text="JIRA Configuration" description="Simple Description ">-->
+<!--      <add-to-group group-id="MyIdeaDemo.HelloAction" anchor="last"> JIRA Configuration</add-to-group>-->
+<!--      <action class="com.escuela.plugin.HelloAction" id="MyIdeaDemo.Actions.HelloAction"  text="Veruthe oru kali" />-->
+<!--    </group>-->
+  </actions>
+</idea-plugin>
