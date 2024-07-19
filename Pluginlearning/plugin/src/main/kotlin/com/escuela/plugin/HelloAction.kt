@@ -6,10 +6,7 @@ import com.intellij.openapi.fileChooser.FileChooser
 import com.intellij.openapi.fileChooser.FileChooserDescriptor
 import com.intellij.openapi.ui.Messages
 import com.intellij.util.Consumer
-import com.java.escuela.SampleDialogWrapper
-import com.java.escuela.WebserviceCall
-import java.awt.event.ActionEvent
-import javax.swing.JButton
+import com.java.escuela.JIRAStoryHelper
 
 
 /**
@@ -67,7 +64,8 @@ class HelloAction : AnAction() {
         fileChooserDescriptor.title = "File Chooser";
         fileChooserDescriptor.description = "My File Chooser Demo";
         FileChooser.chooseFile(fileChooserDescriptor,e.project,null, Consumer {
-            val message = WebserviceCall.createStories(it.path);
+            val message = JIRAStoryHelper.createStories(it.path);
+            print(message);
             Messages.showMessageDialog(e.project,it.path +" - "+message,"Path",Messages.getInformationIcon())}
         );
         return "";

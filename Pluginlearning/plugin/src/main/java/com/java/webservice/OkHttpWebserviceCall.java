@@ -1,13 +1,11 @@
-package com.java.escuela;
+package com.java.webservice;
 
 import okhttp3.*;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
-import java.util.Map;
 
-public class WebserviceCall {
+public class OkHttpWebserviceCall {
 
     static OkHttpClient client = new OkHttpClient();
     static String runget(String url) throws IOException {
@@ -53,28 +51,40 @@ public class WebserviceCall {
             if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
             System.out.println(response.body().string());
         }
-
     }
 
-    /**
-     *
-     * @param filePath
-     * @return
-     * @throws IOException
-     */
-    public static String createStories(String filePath) throws IOException {
-        Map<Integer, List<String>> map = new FastexcelHelper().readExcel(filePath);
-        for (Map.Entry<Integer, List<String>> entry : map.entrySet()) {
-            System.out.println(entry.getKey() + ": " + entry.getValue());
-            List<String> value = entry.getValue();
-            String entry1= value.get(0);
-            String entry2= value.get(1);
-            String entry3= value.get(2);
-            JIRAStoryHelper.jiraCreateIssue(entry2,entry3,"BUG");
-        }
-        System.out.println(map);
-        return "Yaaay !!! "+ map.size() +" Stories Created Successfully";
-    }
+//    /**
+//     *
+//     * @param filePath
+//     * @return
+//     * @throws IOException
+//     */
+//    public static String createStories(String filePath) throws IOException {
+//        Map<Integer, List<String>> map = new FastexcelHelper().readExcel(filePath);
+//
+//        StringBuilder responseMsg = new StringBuilder();
+//        for (Map.Entry<Integer, List<String>> entry : map.entrySet()) {
+//            System.out.println(entry.getKey() + ": " + entry.getValue());
+//            List<String> value = entry.getValue();
+//            String entry1= value.get(0);
+//            String entry2= value.get(1);
+//            String entry3= value.get(2);
+//            String entry4= value.get(3);
+//            String entry5= value.get(4);
+//
+//            JIRARequestModel model = new JIRARequestModel();
+//            model.setTitleSummary(value.get(1));
+//            model.setDescription(value.get(2));
+//            model.setJiraIssueType(value.get(3));
+//            model.setKey(value.get(4));
+//            System.out.println(" Model Print : "+model.toString());
+////          JIRAStoryHelper.jiraCreateIssue(entry2,entry3,"BUG");
+//            responseMsg.append(JIRAStoryHelper.createJIRAIssue(model));
+//        }
+//        responseMsg.append("Yaaay !!! "+ map.size() +" Stories Created Successfully");
+//        System.out.println(map);
+//        return responseMsg.toString();
+//    }
 
 
 }
