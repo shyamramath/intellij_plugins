@@ -6,7 +6,7 @@ import com.intellij.openapi.fileChooser.FileChooser
 import com.intellij.openapi.fileChooser.FileChooserDescriptor
 import com.intellij.openapi.ui.Messages
 import com.intellij.util.Consumer
-import com.java.escuela.JIRAStoryHelper
+import com.java.escuela.JiraAPIUtilities
 
 
 /**
@@ -66,8 +66,7 @@ class HelloAction : AnAction() {
         fileChooserDescriptor.title = "File Chooser";
         fileChooserDescriptor.description = "JIRA File chooser";
             FileChooser.chooseFile(fileChooserDescriptor,e.project,null, Consumer {
-                val message = JIRAStoryHelper.createStories(it.path);
-               // print(message);
+                val message = JiraAPIUtilities.createStories(it.path);
                 returnMessage = message;
                // Messages.showMessageDialog(e.project,it.path +" - "+message,"Path",Messages.getInformationIcon());
             }

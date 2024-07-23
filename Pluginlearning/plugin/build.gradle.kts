@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "com.escuela"
-version = "1.1-SNAPSHOT"
+version = "2.0-RELEASE"
 
 repositories {
   mavenCentral()
@@ -13,8 +13,8 @@ repositories {
 }
 
 dependencies(){
-  implementation("com.squareup.okhttp3:okhttp:4.12.0")
-//  implementation("com.escuela.ai:jiraaiautomation:2.0-SNAPSHOT")
+//  implementation("com.squareup.okhttp3:okhttp:4.12.0")
+  implementation("com.squareup.okhttp3:okhttp:5.0.0-alpha.14")
   implementation("org.dhatim:fastexcel:0.18.0")
   implementation("org.dhatim:fastexcel-reader:0.18.0")
   implementation("com.konghq:unirest-java:3.14.1")

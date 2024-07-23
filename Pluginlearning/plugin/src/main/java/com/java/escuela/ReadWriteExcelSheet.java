@@ -13,11 +13,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 
-public class FastexcelHelper {
+public class ReadWriteExcelSheet {
 
+    /**
+     *
+     * @param fileLocation
+     * @return
+     * @throws IOException
+     */
     public Map<Integer, List<String>> readExcel(String fileLocation) throws IOException {
         Map<Integer, List<String>> data = new HashMap<>();
-//        fileLocation="/Users/shyamramath/Documents/Book1.xlsx";
         try (FileInputStream file = new FileInputStream(fileLocation); ReadableWorkbook wb = new ReadableWorkbook(file)) {
             Sheet sheet = wb.getFirstSheet();
             try (Stream<Row> rows = sheet.openStream()) {

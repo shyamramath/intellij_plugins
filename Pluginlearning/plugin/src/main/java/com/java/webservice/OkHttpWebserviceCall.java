@@ -8,50 +8,51 @@ import java.io.IOException;
 public class OkHttpWebserviceCall {
 
     static OkHttpClient client = new OkHttpClient();
-    static String runget(String url) throws IOException {
-        Request request = new Request.Builder()
-                .url(url)
-                .build();
-        try (Response response = client.newCall(request).execute()) {
-            return response.body().string();
-        }
-    }
+//    static String runget(String url) throws IOException {
+//        Request request = new Request.Builder()
+//                .url(url)
+//                .build();
+//        try (Response response = client.newCall(request).execute()) {
+//            return response.body().string();
+//        }
+//    }
 
 
     public static final MediaType JSON = MediaType.get("application/json");
-    String post(String url, String json) throws IOException {
-        RequestBody body = RequestBody.create(json, JSON);
-        Request request = new Request.Builder()
-                .url(url)
-                .post(body)
-                .build();
-        try (Response response = client.newCall(request).execute()) {
-            return response.body().string();
-        }
-    }
+//    String post(String url, String json) throws IOException {
+//        RequestBody body = RequestBody.create(json, JSON);
+//        Request request = new Request.Builder()
+//                .url(url)
+//                .post(body)
+//                .build();
+//        try (Response response = client.newCall(request).execute()) {
+//            return response.body().string();
+//        }
+//    }
 
     private static final String IMGUR_CLIENT_ID = "...";
     private static final MediaType MEDIA_TYPE_PNG = MediaType.parse("image/png");
-    public void run() throws Exception {
 
-        // Use the imgur image upload API as documented at https://api.imgur.com/endpoints/image
-        RequestBody requestBody = new MultipartBody.Builder()
-                .setType(MultipartBody.FORM)
-                .addFormDataPart("title", "Square Logo")
-                .addFormDataPart("image", "logo-square.png",RequestBody.create(MEDIA_TYPE_PNG, new File("website/static/logo-square.png")))
-                .build();
-
-        Request request = new Request.Builder()
-                .header("Authorization", "Client-ID " + IMGUR_CLIENT_ID)
-                .url("https://api.imgur.com/3/image")
-                .post(requestBody)
-                .build();
-
-        try (Response response = client.newCall(request).execute()) {
-            if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
-            System.out.println(response.body().string());
-        }
-    }
+//    public void run() throws Exception {
+//
+//        // Use the imgur image upload API as documented at https://api.imgur.com/endpoints/image
+//        RequestBody requestBody = new MultipartBody.Builder()
+//                .setType(MultipartBody.FORM)
+//                .addFormDataPart("title", "Square Logo")
+//                .addFormDataPart("image", "logo-square.png",RequestBody.create(MEDIA_TYPE_PNG, new File("website/static/logo-square.png")))
+//                .build();
+//
+//        Request request = new Request.Builder()
+//                .header("Authorization", "Client-ID " + IMGUR_CLIENT_ID)
+//                .url("https://api.imgur.com/3/image")
+//                .post(requestBody)
+//                .build();
+//
+//        try (Response response = client.newCall(request).execute()) {
+//            if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
+//            System.out.println(response.body().string());
+//        }
+//    }
 
 //    /**
 //     *
