@@ -10,9 +10,9 @@ import java.util.Map;
 
 public class OpenAIChatGPTImpl {
 
-    static String OPEN_AI_KEY ="sk-None-m01jpYTbLpCqrSgzTtHQT3BlbkFJ35GiklSsIwiI0O4OnoHP";
-
+    static String OPEN_AI_KEY =System.getenv("OPEN_AI_KEY");
     public static  String  chatModel(String storyDescription){
+        System.out.println( "********* API call to ChatGPT *********");
         ChatLanguageModel model= OpenAiChatModel.withApiKey(OPEN_AI_KEY);
         //String stringTemplate =" Create a recipe for the {{dishType}} with following ingredients : {{ingredients}}";
         String stringTemplate ="The JIRA story with acceptance criteria, story context is   {{storyDescription}}";
@@ -23,7 +23,7 @@ public class OpenAIChatGPTImpl {
         map.put("storyDescription",storyDescription);
         Prompt prompt = promptTemplate.apply(map);
         String response = model.generate(prompt.text());
-        System.out.println(response);
+        System.out.println("Response From ChatGPT  ===" +response);
         return response;
     }
 

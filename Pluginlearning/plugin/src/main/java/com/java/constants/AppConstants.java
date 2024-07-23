@@ -10,9 +10,9 @@ public class AppConstants {
 //            .body(payload.toString())
 //            .asJson();
 
-    public static String JIRA_API_TOKEN = "ATATT3xFfGF0f0H0ZLkELdg6kQZIXuie-8XBc5_MK85-HDH307NtmBqztn4Ro8HKwSdOCwfV6H3XKKokj8UN2yCOeB8uqZTZwryXX2g5YNqaZhFyrDZQCLArODCEPNr_xGgWwPvDCv1rguc7USx_-fr-eNbJco4wseHQQqJcqPAREn_xH7AUDbs=C917FB80";
+    public static String JIRA_API_TOKEN = "ATATT3xFfGF0JOKSnQV-ocCF_UeIYgE_nOUnq4gDBzhtjN6kAbT_jwLaH9hTz-tuI8ksHni-kAYBr715pL8TLVRYIwxRJNb1XkXmgEJ5reZWUdTQ6ZS_xRw26gzZdOd1El_4G1cRjCaGJmbKVkHERxDM7WkZMzd3gl1oNhl6n8H5S4I0An51iXQ=CD981BEE";
     public static String JIRA_USERNAME= "shyam.ramath@gmail.com";
-    public static String JIRA_URL = "https://shyamramath.atlassian.net//rest/api/2/issue/";
+    public static String JIRA_API_ENDPOINT = "https://shyamramath.atlassian.net//rest/api/2/issue/";
 
 
 
