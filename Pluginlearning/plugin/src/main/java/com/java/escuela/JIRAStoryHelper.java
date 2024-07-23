@@ -33,9 +33,7 @@ public class JIRAStoryHelper {
         ObjectNode issueType = fields.putObject("issuetype");
         issueType.put("name", "Bug");
         System.out.println(payload.toString());
-
-                String API_TOKEN = "ATATT3xFfGF0ltS16JeBZdmCuhOaG0OYEjTRCME0hZlqVmOLVFDg9hDqNScIu6LQwzo8n3k9NZHobPgcTXFbbz-jjMTnLU5cx8MV8M68hMQm7dMtzjAwdd2UZ2qnuujqbv5mjWM6DmH07bmaQqsZcvd5hu938nsKgCANmy_JExa_pZZ6hSfjLhU=C5DD54A3";
-
+        String API_TOKEN = "NULL";
         HttpResponse<JsonNode> response = Unirest.post("https://shyamramath.atlassian.net//rest/api/2/issue/")
                 .basicAuth("shyam.ramath@gmail.com",API_TOKEN)
                 .header("Content-Type", "application/json")
@@ -73,7 +71,6 @@ public class JIRAStoryHelper {
             model.setJiraIssueType(value.get(3));
             model.setKey(value.get(4));
             System.out.println(" Model Print : "+model.toString());
-//          JIRAStoryHelper.jiraCreateIssue(entry2,entry3,"BUG");
             responseMsg.append(createJIRAIssue(model));
         }
         responseMsg.append("Yaaay !!! "+ map.size() +" Stories Created Successfully");
@@ -87,10 +84,6 @@ public class JIRAStoryHelper {
      * @return
      */
     public static String createJIRAIssue(JIRARequestModel model){
-
-        System.out.println("****************************************************");
-        System.out.println(System.getenv("SDKMAN_DIR"));
-        System.out.println("****************************************************");
 
         JsonNodeFactory jnf = JsonNodeFactory.instance;
         ObjectNode payload = jnf.objectNode();
