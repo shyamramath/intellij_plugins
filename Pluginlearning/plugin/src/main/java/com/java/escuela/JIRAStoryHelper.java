@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.java.constants.AppConstants;
 import com.java.models.JIRARequestModel;
+import com.java.openai.OpenAIChatGPTImpl;
 import com.java.webservice.UnirestWebServiceCall;
 import kong.unirest.HttpResponse;
 import kong.unirest.JsonNode;
@@ -68,7 +69,7 @@ public class JIRAStoryHelper {
 
             JIRARequestModel model = new JIRARequestModel();
             model.setTitleSummary(value.get(1));
-            model.setDescription(value.get(2));
+            model.setDescription(OpenAIChatGPTImpl.chatModel(value.get(2)));
             model.setJiraIssueType(value.get(3));
             model.setKey(value.get(4));
             System.out.println(" Model Print : "+model.toString());

@@ -17,13 +17,13 @@ class HelloAction : AnAction() {
     override fun actionPerformed(e: AnActionEvent) {
 //        Messages.showMessageDialog(e.project, "Hello ", "MyIdeaDemo", Messages.getInformationIcon());
 //        val name= Messages.showInputDialog(e.project, "Enter your Name", "MyIdeaDemo", Messages.getQuestionIcon());
-//      Messages.showMessageDialog(e.project, "Your  Name is  $name", "MyIdeaDemo", Messages.getInformationIcon());
-//        Messages.showMessageDialog(e.project, showFileDialog(e), "MyIdeaDemo", Messages.getInformationIcon());
+//        Messages.showMessageDialog(e.project, "Your  Name is  $name", "MyIdeaDemo", Messages.getInformationIcon());
+        Messages.showMessageDialog(e.project, showFileDialog(e), "JIRA Integration", Messages.getInformationIcon());
 
-        if(MyDialougeWrapper().showAndGet()){
-            println(" Ok Clicked ");
-            showFileDialog(e);
-        }
+//        if(MyDialougeWrapper().showAndGet()){
+//            println(" Ok Clicked ");
+//            showFileDialog(e);
+//        }
     }
 
    // private fun showFileDialog(e: AnActionEvent) {
@@ -53,6 +53,8 @@ class HelloAction : AnAction() {
 //    }
 
     private fun showFileDialog(e: AnActionEvent) :String  {
+
+        lateinit var returnMessage: String
         val fileChooserDescriptor = FileChooserDescriptor(
             true,
             true,
@@ -62,13 +64,18 @@ class HelloAction : AnAction() {
             false
         );
         fileChooserDescriptor.title = "File Chooser";
-        fileChooserDescriptor.description = "My File Chooser Demo";
-        FileChooser.chooseFile(fileChooserDescriptor,e.project,null, Consumer {
-            val message = JIRAStoryHelper.createStories(it.path);
-            print(message);
-            Messages.showMessageDialog(e.project,it.path +" - "+message,"Path",Messages.getInformationIcon())}
+        fileChooserDescriptor.description = "JIRA File chooser";
+            FileChooser.chooseFile(fileChooserDescriptor,e.project,null, Consumer {
+                val message = JIRAStoryHelper.createStories(it.path);
+               // print(message);
+                returnMessage = message;
+               // Messages.showMessageDialog(e.project,it.path +" - "+message,"Path",Messages.getInformationIcon());
+            }
         );
-        return "";
+        return returnMessage;
+    }
+
+    private fun createMessage(){
     }
 
 }

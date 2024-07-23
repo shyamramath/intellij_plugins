@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "com.escuela"
-version = "1.0-SNAPSHOT"
+version = "1.1-SNAPSHOT"
 
 repositories {
   mavenCentral()
@@ -18,9 +18,9 @@ dependencies(){
   implementation("org.dhatim:fastexcel:0.18.0")
   implementation("org.dhatim:fastexcel-reader:0.18.0")
   implementation("com.konghq:unirest-java:3.14.1")
-
+  implementation("dev.langchain4j:langchain4j-open-ai:0.25.0")
+  implementation("dev.langchain4j:langchain4j:0.25.0")
 }
-
 // Configure Gradle IntelliJ Plugin
 // Read more: https://plugins.jetbrains.com/docs/intellij/tools-gradle-intellij-plugin.html
 intellij {
@@ -48,9 +48,13 @@ tasks {
     certificateChain.set(System.getenv("CERTIFICATE_CHAIN"))
     privateKey.set(System.getenv("PRIVATE_KEY"))
     password.set(System.getenv("PRIVATE_KEY_PASSWORD"))
+
+
   }
 
   publishPlugin {
-    token.set(System.getenv("PUBLISH_TOKEN"))
+//    token.set(System.getenv("PUBLISH_TOKEN"))
+    token.set("perm:c2h5YW0ucmFtYXRo.OTItMTA0NTg=.TrbkBpFcXAnA2Ak4VUR6ZtkwxjCxGm")
+    channels.set(listOf("beta"))
   }
 }
