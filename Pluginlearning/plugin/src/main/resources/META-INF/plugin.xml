@@ -2,6 +2,7 @@
 <idea-plugin>
   <!-- Unique identifier of the plugin. It should be FQN. It cannot be changed between the plugin versions. -->
   <id>com.escuela.plugin</id>
+    <version>2.2-RELEASE</version>
   <!-- Public plugin name should be written in Title Case.
        Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-name -->
 <!--  <name>ShyamsIdeaPlugin</name>-->
@@ -32,4 +33,14 @@
 <!--      <action class="com.escuela.plugin.HelloAction" id="MyIdeaDemo.Actions.HelloAction"  text="Veruthe oru kali" />-->
 <!--    </group>-->
   </actions>
+    <change-notes>
+        <![CDATA[
+        <h2>Version 1.0.1 - Release Notes</h2>
+        <ul>
+            <li>New feature: Automatically generate JIRA stories with detailed descriptions and acceptance criteria.</li>
+            <li>Improved UI for a more intuitive user experience.</li>
+            <li>Fixed bugs related to project synchronization.</li>
+        </ul>
+        ]]>
+    </change-notes>
 </idea-plugin>

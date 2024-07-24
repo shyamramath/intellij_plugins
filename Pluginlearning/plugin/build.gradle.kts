@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "com.escuela"
-version = "2.0-RELEASE"
+version = "2.2-RELEASE"
 
 repositories {
   mavenCentral()
@@ -24,7 +24,7 @@ dependencies(){
 // Configure Gradle IntelliJ Plugin
 // Read more: https://plugins.jetbrains.com/docs/intellij/tools-gradle-intellij-plugin.html
 intellij {
-  version.set("2023.2.6")
+  version.set("2024.1.4")
   type.set("IC") // Target IDE Platform
   plugins.set(listOf(/* Plugin Dependencies */))
 }
