@@ -22,6 +22,7 @@
        Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
   <extensions defaultExtensionNs="com.intellij">
   </extensions>
+
   <actions>
     <group id="MyIdeaDemo.HelloAction" text="JIRAChatGPT" description="Simple Description ">
 <!--      <add-to-group group-id="MainMenu" anchor="last"> JIRA ChatGPT</add-to-group>-->
@@ -33,6 +34,19 @@
 <!--      <action class="com.escuela.plugin.HelloAction" id="MyIdeaDemo.Actions.HelloAction"  text="Veruthe oru kali" />-->
 <!--    </group>-->
   </actions>
+
+<!--    <actions>-->
+<!--        <action id="com.java.actions.ShowInputDialogAction" class="com.java.actions.ShowInputDialogAction" text="Show Input Dialog" description="Show Input Dialog">-->
+<!--            <add-to-group group-id="ToolsMenu" anchor="last"/>-->
+<!--        </action>-->
+<!--    </actions>-->
+
+    <actions>
+        <action id="com.java.actions.ShowFileUploadDialogAction" class="com.java.actions.ShowFileUploadDialogAction" text="JIRA Story Creation" description="Show File Upload Dialog">
+            <add-to-group group-id="ToolsMenu" anchor="last"/>
+        </action>
+    </actions>
+
     <change-notes>
         <![CDATA[
         <h2>Version 1.0.1 - Release Notes</h2>

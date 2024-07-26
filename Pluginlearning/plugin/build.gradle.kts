@@ -20,6 +20,7 @@ dependencies(){
   implementation("com.konghq:unirest-java:3.14.1")
   implementation("dev.langchain4j:langchain4j-open-ai:0.25.0")
   implementation("dev.langchain4j:langchain4j:0.25.0")
+  implementation("org.codehaus.jackson:jackson-mapper-asl:1.9.13")
 }
 // Configure Gradle IntelliJ Plugin
 // Read more: https://plugins.jetbrains.com/docs/intellij/tools-gradle-intellij-plugin.html
