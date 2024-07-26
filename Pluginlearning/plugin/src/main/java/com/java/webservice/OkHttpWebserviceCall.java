@@ -98,7 +98,7 @@ public class OkHttpWebserviceCall {
      * @return
      */
     public String makeCorporateCall(String openAIRequestModel){
-        String accesToken = "sk-None-zL4KovS2sFx9FmDdSmPYT3BlbkFJUaQELi6h5RZH4sMPH891";
+        String accesToken = "";
         final MediaType JSON = MediaType.get("application/json");
         okhttp3.RequestBody body = okhttp3.RequestBody.create(openAIRequestModel.toString(), JSON);
         Request request= new Request.Builder().url("https://api.openai.com/v1/chat/completions").post(body).addHeader("Authorization", "Bearer "+accesToken).build();
