@@ -2,9 +2,18 @@ package com.java.constants;
 
 public class AppConstants {
 
-    public static String JIRA_API_TOKEN = "";
-    public static String JIRA_USERNAME  = "shyam.ramath@gmail.com";
+    public static String JIRA_API_TOKEN    = "";
+    public static String JIRA_USERNAME     = "shyam.ramath@gmail.com";
     public static String JIRA_API_ENDPOINT = "https://shyamramath.atlassian.net//rest/api/2/issue/";
+
+    public static String OPEN_AI_KEY                = System.getenv("OPEN_AI_KEY");
+    public static String OPEN_AI_API_TOKEN          =  System.getenv("OPEN_AI_API_TOKEN");
+    public static String OPEN_AI_API_ENDPOINT       =  "https://api.openai.com/v1/chat/completions"; // System.getenv("OPEN_AI_API_ENDPOINT");
+
+    public static String CORP_OPEN_AI_API_TOKEN     =  System.getenv("CORP_OPEN_AI_API_TOKEN");
+    public static String CORP_OPEN_AI_API_ENDPOINT  =  System.getenv("CORP_OPEN_AI_API_ENDPOINT");
+    public static String JIRA_AI_LOG_PATH           =  System.getenv("JIRA_AI_LOG_PATH");
+
 
     public static String OPEN_AI_REQUEST_JSON_TEMPLATE = """
             {

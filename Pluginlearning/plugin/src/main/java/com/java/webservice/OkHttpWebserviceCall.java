@@ -1,9 +1,9 @@
 package com.java.webservice;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.intellij.openapi.progress.ProgressIndicator;
 import com.java.constants.AppConstants;
-import com.java.models.OpenAIRequestModel;
+import com.java.models.OpenAICorporateRequestModel;
+import com.java.utils.FileUtils;
 import okhttp3.*;
 
 import javax.net.ssl.*;
@@ -15,6 +15,7 @@ import java.security.cert.X509Certificate;
 import java.util.concurrent.TimeUnit;
 
 public class OkHttpWebserviceCall {
+
     /**
      *
      * @return
@@ -36,7 +37,6 @@ public class OkHttpWebserviceCall {
                     }
                 }
         };
-
         final SSLContext sslContext;
         try {
             sslContext = SSLContext.getInstance("SSL");
@@ -60,7 +60,7 @@ public class OkHttpWebserviceCall {
         }
     }
 
-    okhttp3.RequestBody getRequestBody(OpenAIRequestModel openAIRequestModel) {
+    okhttp3.RequestBody getRequestBody(OpenAICorporateRequestModel openAIRequestModel) {
         try {
             final MediaType JSON = MediaType.get("application/json");
             okhttp3.RequestBody body = okhttp3.RequestBody.create(openAIRequestModel.toString(), JSON);
@@ -71,18 +71,11 @@ public class OkHttpWebserviceCall {
         }
     }
 
-    Request  requestBuilder(OpenAIRequestModel openAIRequestModel){
-        String accesToken = "sk-None-zL4KovS2sFx9FmDdSmPYT3BlbkFJUaQELi6h5RZH4sMPH891";
-        return  new Request.Builder().url("https://api.openai.com/v1/chat/completions").post(getRequestBody(openAIRequestModel)).addHeader("Authorization", "Bearer "+accesToken).build();
-    }
-
-    public String makeCall(OpenAIRequestModel openAIRequestModel){
-
-        String accesToken = "sk-None-zL4KovS2sFx9FmDdSmPYT3BlbkFJUaQELi6h5RZH4sMPH891";
+    public String makeOpenAIAPICall(String requestJson){
+        String accesToken = AppConstants.OPEN_AI_KEY;
         final MediaType JSON = MediaType.get("application/json");
-        okhttp3.RequestBody body = okhttp3.RequestBody.create(openAIRequestModel.toString(), JSON);
-
-        Request request= new Request.Builder().url("https://api.openai.com/v1/chat/completions").post(body).addHeader("Authorization", "Bearer "+accesToken).build();
+        okhttp3.RequestBody body = okhttp3.RequestBody.create(requestJson, JSON);
+        Request request= new Request.Builder().url(AppConstants.OPEN_AI_API_ENDPOINT).post(body).addHeader("Authorization", "Bearer "+accesToken).build();
         try(Response response =new OkHttpClient().newCall(request).execute()){
             return response.body().string();
         } catch (IOException e) {
@@ -97,17 +90,30 @@ public class OkHttpWebserviceCall {
      * @param openAIRequestModel
      * @return
      */
-    public String makeCorporateCall(String openAIRequestModel){
-        String accesToken = "";
+    public String makeCorporateOpenAICall(String openAIRequestModel, ProgressIndicator indicator){
+
         final MediaType JSON = MediaType.get("application/json");
         okhttp3.RequestBody body = okhttp3.RequestBody.create(openAIRequestModel.toString(), JSON);
-        Request request= new Request.Builder().url("https://api.openai.com/v1/chat/completions").post(body).addHeader("Authorization", "Bearer "+accesToken).build();
-        try(Response response =new OkHttpClient().newCall(request).execute()){
+        Request request= new Request.Builder().url(AppConstants.CORP_OPEN_AI_API_ENDPOINT).post(body)
+                .addHeader("Authorization", "Bearer "+AppConstants.CORP_OPEN_AI_API_TOKEN).build();
+
+        indicator.setText("Calling the corp backend endpoint .... ");
+        FileUtils.log("Calling the corp backend endpoint,  "+AppConstants.CORP_OPEN_AI_API_ENDPOINT);
+
+        try(Response response =getUnsafeOKhttpClient().newCall(request).execute()){
             return response.body().string();
         } catch (IOException e) {
+            indicator.setText(" Error : while calling the open AI API .... (" +e.getMessage()  +") " );
+            FileUtils.log(" Error : while calling the open AI API, (" +e.getMessage()  +") ");
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException ex) {
+                throw new RuntimeException(ex);
+            }
             e.printStackTrace();
             return  e.getLocalizedMessage();
         }
+
     }
 
 
@@ -158,11 +164,6 @@ public class OkHttpWebserviceCall {
 //        }
 //    }
 
-    public static void callMain() throws JsonProcessingException {
-        String jsonData = AppConstants.OPEN_AI_REQUEST_JSON_TEMPLATE;
-        ObjectMapper objectMapper = new ObjectMapper();
-        OpenAIRequestModel openAIRequestModel = objectMapper.readValue(jsonData, OpenAIRequestModel.class);
-        System.out.println(openAIRequestModel.toString());
-    }
+
 
 }

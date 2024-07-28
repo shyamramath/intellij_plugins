@@ -3,10 +3,6 @@ package com.escuela.plugin
 import com.intellij.openapi.ui.DialogWrapper
 import com.intellij.uiDesigner.core.AbstractLayout
 import com.intellij.util.ui.GridBag
-import com.intellij.util.ui.JBUI
-import com.intellij.util.ui.UIUtil
-import com.java.escuela.SampleDialogWrapper
-import java.awt.Font
 import java.awt.GridBagConstraints
 import java.awt.GridBagLayout
 import java.awt.Insets

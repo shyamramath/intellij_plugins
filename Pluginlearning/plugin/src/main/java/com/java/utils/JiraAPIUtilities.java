@@ -1,10 +1,10 @@
-package com.java.escuela;
+package com.java.utils;
 
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.intellij.openapi.progress.ProgressIndicator;
 import com.java.models.JIRARequestModel;
 import com.java.openai.OpenAIChatGPTImpl;
-import com.java.webservice.OkHttpWebserviceCall;
 import com.java.webservice.UnirestWebServiceCall;
 import kong.unirest.HttpResponse;
 import kong.unirest.JsonNode;
@@ -53,38 +53,51 @@ public class JiraAPIUtilities {
      * @return
      * @throws IOException
      */
-    public static String createStories(String filePath) throws IOException {
-
-//        try {
-//            //Test call delete later
-//            OpenAIChatGPTImpl.openAICorporateChatModel("Who is the captain of indian cricket team ");
-//        }catch (Exception e){
-//            e.printStackTrace();
-//        }
-
+    public static String createStories(String filePath, Boolean isSecuredModeON, ProgressIndicator indicator) throws IOException {
 
         Map<Integer, List<String>> map = new ReadWriteExcelSheet().readExcel(filePath);
-        for (Map.Entry<Integer, List<String>> entry : map.entrySet()) {
+        indicator.setText(" Reading uploaded excel file from the disk");
+        FileUtils.log("Reading uploaded excel file from the disk, "+filePath);
 
-            System.out.println(entry.getKey() + ": " + entry.getValue());
+        for (Map.Entry<Integer, List<String>> entry : map.entrySet()) {
+            FileUtils.log(" Rows read from Spread-sheetb ->  ( "+ entry.getKey() + ": " + entry.getValue() +" ) " );
+
             List<String> value = entry.getValue();
             String entry1= value.get(0);
-            String entry2= value.get(1);
-            String entry3= value.get(2);
-            String entry4= value.get(3);
-            String entry5= value.get(4);
+            String subject= value.get(1);
+            String description= value.get(2);
+            String issueType= value.get(3).trim();
+            String boardName= value.get(4).trim();
 
+
+            if (subject.equals("Subject")){
+                FileUtils.log(" Skipping the header row from the spread-sheet ");
+                continue;
+            }
             JIRARequestModel model = new JIRARequestModel();
-            model.setTitleSummary(value.get(1));
-//            model.setDescription(OpenAIChatGPTImpl.langchainChatModel(value.get(2)));
-            model.setDescription(OpenAIChatGPTImpl.openAICorporateChatModel(value.get(2)));
-            model.setJiraIssueType(value.get(3));
-            model.setKey(value.get(4));
+            model.setTitleSummary(subject);
 
-            System.out.println(" Model Print : "+model.toString());
-            createJIRAIssue(model);
+            //TODO - find a better solution
+            if(isSecuredModeON) {
+                indicator.setText(" Secured mode is on, calling OpenAI API ....");
+                FileUtils.log("Secured mode is on, calling OpenAI API , ");
+                model.setDescription(OpenAIChatGPTImpl.openAICorporateChatModel(description,indicator));
+            }else{
+                indicator.setText(" calling OpenAI API for story description....");
+                model.setDescription(OpenAIChatGPTImpl.langchainChatModel(description));
+            }
+
+            model.setJiraIssueType(issueType);
+            model.setKey(boardName);
+            FileUtils.log ("Model Print : "+model.toString());
+            FileUtils.log ("*******************************************************************************************************************************************");
+            indicator.setText(" Creating JIRA stories on the board ....");
+            FileUtils.log(createJIRAIssue(model));
+            FileUtils.log ("*******************************************************************************************************************************************");
         }
-        System.out.println(map);
+
+        FileUtils.log ("Data read from Spreadsheet : "+map);
+        FileUtils.log("All Stories in the upload spread-sheet got created, totol number of stories created ("+map.size()+")");
         return "All Stories in the upload spread-sheet got created, totol number of stories created ("+map.size()+")";
     }
 
@@ -93,7 +106,7 @@ public class JiraAPIUtilities {
      * @param model
      * @return
      */
-    public static String createJIRAIssue(JIRARequestModel model){
+    private static String createJIRAIssue(JIRARequestModel model){
 
         JsonNodeFactory jnf = JsonNodeFactory.instance;
         ObjectNode payload = jnf.objectNode();

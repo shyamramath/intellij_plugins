@@ -1,6 +1,6 @@
 package com.java.models;
 
-public class OpenAICorporateResponseModel {
+public class OpenAIGeneralResponseModel {
 
     private int code;
     private int dlp_execution_time_ms;

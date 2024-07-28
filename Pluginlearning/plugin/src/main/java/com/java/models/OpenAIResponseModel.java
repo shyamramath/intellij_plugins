@@ -8,7 +8,7 @@ public class OpenAIResponseModel {
     private String object;
     private long created;
     private String model;
-    private List<OpenAICorporateResponseModel.Choice> choices;
+    private List<OpenAIGeneralResponseModel.Choice> choices;
     private Usage usage;
     private String system_fingerprint;
 
@@ -44,11 +44,11 @@ public class OpenAIResponseModel {
         this.model = model;
     }
 
-    public List<OpenAICorporateResponseModel.Choice> getChoices() {
+    public List<OpenAIGeneralResponseModel.Choice> getChoices() {
         return choices;
     }
 
-    public void setChoices(List<OpenAICorporateResponseModel.Choice> choices) {
+    public void setChoices(List<OpenAIGeneralResponseModel.Choice> choices) {
         this.choices = choices;
     }
 

@@ -1,4 +1,4 @@
-package com.java.escuela;
+package com.java.utils;
 
 import com.intellij.openapi.ui.DialogWrapper;
 import org.jetbrains.annotations.Nullable;
