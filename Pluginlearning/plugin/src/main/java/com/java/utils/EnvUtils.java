@@ -4,14 +4,6 @@ import com.intellij.openapi.progress.ProgressIndicator;
 
 public class EnvUtils {
 
-//    export JIRA_API_TOKEN="ATATT3xFfGF0_gzVQ1FWqa0NwNcp9AXARBBLv7kWGRgc0PXdxwpppVRR-3-_8XawRartR_4q2Xk1PfjVyuIuQ7Zxsdhzk1HAroPmaVaTznIhw3yIlZNgGpzBPSVjHCnOf0N7y3Q3qIcXxePQsH0cWURngte0GnUX6SDUDcv26BEdj5ObYm7RcDA=AF58FA6F"
-//    export JIRA_USER_NAME="shyam.ramath@gmail.com"
-//    export JIRA_API_ENDPOINT="https://shyamramath.atlassian.net//rest/api/2/issue/"
-//            [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
-//    export OPEN_AI_KEY="sk-proj-lLDenPq7XONIyYcO3Oa3T3BlbkFJGSuVdv7VE8RFWlYSLt47"
-//    export IS_SECURED_CHATGPT_MODE=false
-
-
     public static Boolean validateAllEnvVariables(ProgressIndicator indicator){
 
         String jiraapiToken         = System.getenv("JIRA_API_TOKEN");
