@@ -5,6 +5,7 @@ import com.intellij.openapi.ui.Messages;
 import com.intellij.openapi.progress.ProgressIndicator;
 import com.intellij.openapi.progress.Task;
 import com.intellij.openapi.project.Project;
+import com.intellij.ui.components.JBScrollPane;
 import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
@@ -19,11 +20,12 @@ public class FileUploadDialog extends DialogWrapper {
     private JButton uploadButton;
 
     Project project;
+    JTextArea logArea= new JTextArea(10, 40);
 
     protected FileUploadDialog(@Nullable Project project) {
         super(project);
         this.project=project;
-        setTitle("File Upload");
+        setTitle("JIRA Integration");
         init();
     }
 
@@ -36,6 +38,7 @@ public class FileUploadDialog extends DialogWrapper {
         browseButton    = new JButton("Browse");
         uploadButton    = new JButton("Create Stories");
 
+        JBScrollPane scrollPane = new JBScrollPane(logArea);
         browseButton.addActionListener(e -> {
             JFileChooser fileChooser = new JFileChooser();
             int result = fileChooser.showOpenDialog(panel);
@@ -51,6 +54,7 @@ public class FileUploadDialog extends DialogWrapper {
                 Messages.showErrorDialog("Please select a file to upload.", "Error");
                 return;
             }
+            logArea.append("Uploading file: " + filePath + "\n");
             new BackgroundFileProcessor(project, filePath, this).queue();
         });
 
@@ -59,6 +63,7 @@ public class FileUploadDialog extends DialogWrapper {
         filePanel.add(browseButton, BorderLayout.EAST);
         panel.add(filePanel, BorderLayout.NORTH);
         panel.add(uploadButton, BorderLayout.SOUTH);
+        panel.add(scrollPane,BorderLayout.CENTER);
         return panel;
     }
 

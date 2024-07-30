@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "com.escuela"
-version = "2.2-RELEASE"
+version = "2.2.2-RELEASE"
 
 repositories {
   mavenCentral()

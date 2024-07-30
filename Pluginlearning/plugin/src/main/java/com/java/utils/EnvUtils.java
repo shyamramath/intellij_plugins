@@ -1,24 +1,37 @@
 package com.java.utils;
 
+import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.progress.ProgressIndicator;
 
 public class EnvUtils {
 
+    static Logger log = Logger.getInstance(EnvUtils.class);
+    
     public static Boolean validateAllEnvVariables(ProgressIndicator indicator){
 
-        String jiraapiToken         = System.getenv("JIRA_API_TOKEN");
-        String jiraUserName         = System.getenv("JIRA_USER_NAME");
-        String jiraOpenAiKey        = System.getenv("OPEN_AI_KEY");
-        String jiraIsSecuredMode    = System.getenv("IS_SECURED_CHATGPT_MODE");
-        String corpApiEndpoint      = System.getenv("CORP_OPEN_AI_API_ENDPOINT ");
-        String corpApiToken         = System.getenv("CORP_OPEN_AI_API_TOKEN ");
+//        String jiraapiToken         = System.getenv("JIRA_API_TOKEN");
+//        String jiraUserName         = System.getenv("JIRA_USER_NAME");
+//        String jiraOpenAiKey        = System.getenv("OPEN_AI_KEY");
+//        String jiraIsSecuredMode    = System.getenv("IS_SECURED_CHATGPT_MODE");
+//        String corpApiEndpoint      = System.getenv("CORP_OPEN_AI_API_ENDPOINT ");
+//        String corpApiToken         = System.getenv("CORP_OPEN_AI_API_TOKEN ");
 
-        FileUtils.log("******************************** ENV Variables ***************************************************");
-        FileUtils.log( "    JIRA_API_TOKEN                 : "+jiraapiToken);
-        FileUtils.log( "    JIRA_USER_NAME                 : "+jiraUserName);
-        FileUtils.log( "    IS_SECURED_CHATGPT_MODE        : "+jiraIsSecuredMode);
-        FileUtils.log( "    CORP_OPEN_AI_API_TOKEN         : "+corpApiToken);
-        FileUtils.log("**************************************************************************************************");
+
+        String jiraapiToken         = System.getProperty("JIRA_API_TOKEN");
+        String jiraUserName         = System.getProperty("JIRA_USER_NAME");
+        String openAiKey            = System.getProperty("OPEN_AI_KEY");
+        String jiraIsSecuredMode    = System.getProperty("IS_SECURED_CHATGPT_MODE");
+        String corpApiEndpoint      = System.getProperty("CORP_OPEN_AI_API_ENDPOINT");
+        String corpApiToken         = System.getProperty("CORP_OPEN_AI_API_TOKEN ");
+
+        log.info("******************************** ENV Variables ***************************************************");
+        log.info( "    JIRA_API_TOKEN                       : "+jiraapiToken);
+        log.info( "    JIRA_USER_NAME                       : "+jiraUserName);
+        log.info( "    OPEN_AI_KEY                          : "+openAiKey);
+        log.info( "    IS_SECURED_CHATGPT_MODE              : "+jiraIsSecuredMode);
+        log.info( "    CORP_OPEN_AI_API_TOKEN               : "+corpApiToken);
+        log.info( "    CORP_OPEN_AI_API_ENDPOINT            : "+corpApiEndpoint);
+        log.info("**************************************************************************************************");
 
         Boolean envValidationFlag = true;
 
@@ -34,7 +47,7 @@ public class EnvUtils {
             envValidationFlag=false;
         }
 
-        if (jiraOpenAiKey == null){
+        if (openAiKey == null){
             envValidationMsg.append(" OpenAI-key is not set");
             envValidationFlag=false;
         }
@@ -46,7 +59,7 @@ public class EnvUtils {
 
         if(Boolean.valueOf(jiraIsSecuredMode)){
             if(corpApiToken==null || corpApiEndpoint==null){
-                FileUtils.log( "!!! Secure mode is on, corp api keys are not configured !!!!");
+                log.debug( "!!! Secure mode is on, corp api keys are not configured !!!!");
                 envValidationFlag=false;
             }
         }

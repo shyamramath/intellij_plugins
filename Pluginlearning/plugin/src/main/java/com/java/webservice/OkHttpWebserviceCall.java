@@ -1,9 +1,11 @@
 package com.java.webservice;
 
+import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.progress.ProgressIndicator;
 import com.java.constants.AppConstants;
 import com.java.models.OpenAICorporateRequestModel;
 import com.java.utils.FileUtils;
+import com.java.utils.JiraAPIUtilities;
 import okhttp3.*;
 
 import javax.net.ssl.*;
@@ -15,6 +17,8 @@ import java.security.cert.X509Certificate;
 import java.util.concurrent.TimeUnit;
 
 public class OkHttpWebserviceCall {
+
+    Logger logger =  Logger.getInstance(OkHttpWebserviceCall.class);
 
     /**
      *
@@ -98,13 +102,13 @@ public class OkHttpWebserviceCall {
                 .addHeader("Authorization", "Bearer "+AppConstants.CORP_OPEN_AI_API_TOKEN).build();
 
         indicator.setText("Calling the corp backend endpoint .... ");
-        FileUtils.log("Calling the corp backend endpoint,  "+AppConstants.CORP_OPEN_AI_API_ENDPOINT);
+        logger.info("Calling the corp backend endpoint,  "+AppConstants.CORP_OPEN_AI_API_ENDPOINT);
 
         try(Response response =getUnsafeOKhttpClient().newCall(request).execute()){
             return response.body().string();
-        } catch (IOException e) {
+        } catch (Exception e) {
             indicator.setText(" Error : while calling the open AI API .... (" +e.getMessage()  +") " );
-            FileUtils.log(" Error : while calling the open AI API, (" +e.getMessage()  +") ");
+            logger.info(" Error : while calling the open AI API, (" +e.getMessage()  +") ");
             try {
                 Thread.sleep(5000);
             } catch (InterruptedException ex) {

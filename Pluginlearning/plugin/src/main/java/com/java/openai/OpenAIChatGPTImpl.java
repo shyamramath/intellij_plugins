@@ -2,6 +2,7 @@ package com.java.openai;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.progress.ProgressIndicator;
 import com.java.constants.AppConstants;
 import com.java.models.OpenAIGenaralRequestModel;
@@ -20,27 +21,32 @@ import java.util.Map;
 
 public class OpenAIChatGPTImpl {
 
-
+     static Logger log = Logger.getInstance(OpenAIChatGPTImpl.class);
     /**
      * @param storyDescription
      * @return
      */
     public static  String langchainChatModel(String storyDescription){
     try {
+
+        String response ="";
+            FileUtils.log(" Connecting to openAI API .....");
             ChatLanguageModel model = OpenAiChatModel.withApiKey(AppConstants.OPEN_AI_KEY);
+            FileUtils.log(" Connected with a valid API key.");
             String stringTemplate = "The JIRA story with acceptance criteria, story context is   {{storyDescription}}";
             PromptTemplate promptTemplate = PromptTemplate.from(stringTemplate);
-            FileUtils.log("The JIRA story with acceptance criteria, story context is, "+storyDescription);
+            FileUtils.log(" The JIRA story with acceptance criteria, story context is, "+storyDescription);
             Map<String, Object> map = new HashMap<>();
             map.put("storyDescription", storyDescription);
             Prompt prompt = promptTemplate.apply(map);
-            String response = model.generate(prompt.text());
-            System.out.println("Response From ChatGPT  ===" + response);
-            FileUtils.log("Response From ChatGPT  ===, "+response);
+            FileUtils.log(" Prompting openai to get the in-detailed story .");
+            response = model.generate(prompt.text());
+            FileUtils.log(" Response received from openAI  =, "+response);
             return response;
+
         } catch (Exception e){
-            e.printStackTrace();
-            return "Communication failed with Open AI API's";
+            log.error(" ERROR !!!!! Communication failed with Open AI API's, "+e.getMessage());
+            return "ERROR";
         }
     }
 
@@ -72,9 +78,10 @@ public class OpenAIChatGPTImpl {
             //Return Response.
             return openAIResponseMessage;
 
-        } catch (JsonProcessingException e) {
+        } catch (Exception  e) {
             indicator.setText(e.getMessage());
-            throw new RuntimeException(e);
+            log.error(" openAICorporateChatModel() ERROR !!!!! Communication failed with Open AI API's, "+e.getMessage());
+            return "ERROR";
         }
     }
 

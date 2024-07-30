@@ -2,12 +2,12 @@
 <idea-plugin>
   <!-- Unique identifier of the plugin. It should be FQN. It cannot be changed between the plugin versions. -->
   <id>com.escuela.plugin</id>
-    <version>2.2.1-RELEASE</version>
+    <version>2.2.2-RELEASE</version>
   <!-- Public plugin name should be written in Title Case.
        Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-name -->
   <name>JIRAAIAutomation</name>
   <!-- A displayed Vendor name or Organization ID displayed on the Plugins Page. -->
-  <vendor email="escuela.tech@gmail.com" url="https://www.escuela.com">escuela</vendor>
+  <vendor email="escuela.tech@gmail.com" url="https://www.escuela.com">Shyam Ramath</vendor>
   <!-- Description of the plugin displayed on the Plugin Page and IDE Plugin Manager.
        Simple HTML elements (text formatting, paragraphs, and lists) can be added inside of <![CDATA[ ]]> tag.
        Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-description -->
@@ -41,8 +41,9 @@
 <!--    </actions>-->
 
     <actions>
-        <action id="com.java.actions.ShowFileUploadDialogAction" class="com.java.actions.ShowFileUploadDialogAction" text="JIRA Story Creation" description="Show File Upload Dialog">
-            <add-to-group group-id="ToolsMenu" anchor="last"/>
+        <action id="com.java.actions.ShowFileUploadDialogAction" class="com.java.actions.ShowFileUploadDialogAction" text="JIRA Story Creation"
+                description="Show File Upload Dialog" icon="com.intellij.icons.ExpUiIcons.Actions.RunAll">
+            <add-to-group group-id="ToolsMenu" anchor="last" />
         </action>
     </actions>
 
@@ -50,9 +51,8 @@
         <![CDATA[
         <h2>Version 1.0.1 - Release Notes</h2>
         <ul>
-            <li>New feature: More log features .</li>
-            <li> More improved user interface .</li>
-            <li> Code clean up.  .</li>
+            <li> Fixed some bugs, related to file reading .</li>
+            <li> Added more info logs .</li>
         </ul>
         ]]>
     </change-notes>
