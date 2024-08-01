@@ -9,20 +9,12 @@ public class EnvUtils {
     
     public static Boolean validateAllEnvVariables(ProgressIndicator indicator){
 
-//        String jiraapiToken         = System.getenv("JIRA_API_TOKEN");
-//        String jiraUserName         = System.getenv("JIRA_USER_NAME");
-//        String jiraOpenAiKey        = System.getenv("OPEN_AI_KEY");
-//        String jiraIsSecuredMode    = System.getenv("IS_SECURED_CHATGPT_MODE");
-//        String corpApiEndpoint      = System.getenv("CORP_OPEN_AI_API_ENDPOINT ");
-//        String corpApiToken         = System.getenv("CORP_OPEN_AI_API_TOKEN ");
-
-
         String jiraapiToken         = System.getProperty("JIRA_API_TOKEN");
         String jiraUserName         = System.getProperty("JIRA_USER_NAME");
         String openAiKey            = System.getProperty("OPEN_AI_KEY");
         String jiraIsSecuredMode    = System.getProperty("IS_SECURED_CHATGPT_MODE");
         String corpApiEndpoint      = System.getProperty("CORP_OPEN_AI_API_ENDPOINT");
-        String corpApiToken         = System.getProperty("CORP_OPEN_AI_API_TOKEN ");
+        String corpApiToken         = System.getProperty("CORP_OPEN_AI_API_TOKEN");
 
         log.info("******************************** ENV Variables ***************************************************");
         log.info( "    JIRA_API_TOKEN                       : "+jiraapiToken);

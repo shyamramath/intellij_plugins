@@ -28,8 +28,10 @@ public class BackgroundFileProcessor extends Task.Backgroundable {
 
     @Override
     public void run(ProgressIndicator indicator) {
-        logger.info (AppConstants.PLUGIN_NAME +" Plugin initialized ");
+
+        logger.info(AppConstants.PLUGIN_NAME +" Plugin initialized ");
         System.out.println(System.getProperty("JIRA_API_TOKEN"));
+
         indicator.setText("Reading the file ...");
         logger.info(" Checking the env values -- "+System.getenv());
         File file = new File(filePath);
@@ -43,7 +45,7 @@ public class BackgroundFileProcessor extends Task.Backgroundable {
         //Process the file (this is where your logic goes)
         if (success && envflag) {
             try {
-                indicator.setText("Creating JIRA stories...");
+                indicator.setText(" Creating JIRA stories....... ");
                 String response = JiraAPIUtilities.createStories(filePath,Boolean.getBoolean(System.getenv("IS_SECURED_CHATGPT_MODE")),indicator);
                 indicator.setText(response);
                 this.dialog.logArea.setBackground(Color.DARK_GRAY);
@@ -58,18 +60,18 @@ public class BackgroundFileProcessor extends Task.Backgroundable {
             Messages.showErrorDialog("Failed to upload file.", "Error");
         }
         // After the background work is done, show a dialog
-        ApplicationManager.getApplication().invokeLater(() -> {
-            Messages.showMessageDialog(
-                    myProject,"This is a message from a background task",
-                    "Information",
-                    Messages.getInformationIcon()
-            );
-        });
+//        ApplicationManager.getApplication().invokeLater(() -> {
+//            Messages.showMessageDialog(
+//                    myProject,"This is a message from a background task",
+//                    "Information",
+//                    Messages.getInformationIcon()
+//            );
+//        });
         // Close the dialog
         dialog.closeDialog();
     }
 
-    void backGroundProcessor(FileUploadDialog dialogue){
-        new BackgroundFileProcessor(getProject(), filePath, dialogue).queue();
-    }
+//    void backGroundProcessor(FileUploadDialog dialogue){
+//        new BackgroundFileProcessor(getProject(), filePath, dialogue).queue();
+//    }
 }

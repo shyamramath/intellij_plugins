@@ -49,10 +49,10 @@
 
     <change-notes>
         <![CDATA[
-        <h2>Version 1.0.1 - Release Notes</h2>
+        <h2>Version 2.3.0 - Release Notes</h2>
         <ul>
-            <li> Fixed some bugs, related to file reading .</li>
-            <li> Added more info logs .</li>
+            <li> Fixed a JIRA API call issue .</li>
+            <li> Improved the UI look and feel  .</li>
         </ul>
         ]]>
     </change-notes>
