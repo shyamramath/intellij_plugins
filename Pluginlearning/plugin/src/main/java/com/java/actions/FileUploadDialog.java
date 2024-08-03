@@ -18,6 +18,7 @@ public class FileUploadDialog extends DialogWrapper {
     private JTextField filePathField;
     private JButton browseButton;
     private JButton uploadButton;
+    private JButton closeButton;
 
     Project project;
     JTextArea logArea= new JTextArea(10, 40);
@@ -37,6 +38,7 @@ public class FileUploadDialog extends DialogWrapper {
         filePathField   = new JTextField();
         browseButton    = new JButton("Browse");
         uploadButton    = new JButton("Create Stories");
+        closeButton    = new JButton("Close");
 
         JBScrollPane scrollPane = new JBScrollPane(logArea);
         browseButton.addActionListener(e -> {
@@ -58,22 +60,34 @@ public class FileUploadDialog extends DialogWrapper {
             new BackgroundFileProcessor(project, filePath, this).queue();
         });
 
+        closeButton.addActionListener(e -> {
+            super.doOKAction();
+        });
+
         JPanel filePanel = new JPanel(new BorderLayout());
         filePanel.add(filePathField, BorderLayout.CENTER);
+
         filePanel.add(browseButton, BorderLayout.EAST);
         panel.add(filePanel, BorderLayout.NORTH);
+
         panel.add(uploadButton, BorderLayout.SOUTH);
         panel.add(scrollPane,BorderLayout.CENTER);
+
+
+//
+//       panel.add(closeButton, BorderLayout.SOUTH);
+//       panel.add(scrollPane,BorderLayout.CENTER);
+
         return panel;
     }
 
-    @Override
-    protected void doOKAction() {
-        // Prevent closing the dialog with the OK button
-    }
+//    @Override
+//    protected void doOKAction() {
+//        // Prevent closing the dialog with the OK button
+//    }
 
-    public void closeDialog() {
-        super.doOKAction();
-    }
+//    public void closeDialog() {
+//        super.doOKAction();
+//    }
 }
 

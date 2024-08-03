@@ -28,22 +28,20 @@ public class OpenAIChatGPTImpl {
      */
     public static  String langchainChatModel(String storyDescription){
     try {
-
-        String response ="";
-            FileUtils.log(" Connecting to openAI API .....");
+            String response ="";
+            log.info(" Connecting to openAI API .....");
             ChatLanguageModel model = OpenAiChatModel.withApiKey(AppConstants.OPEN_AI_KEY);
-            FileUtils.log(" Connected with a valid API key.");
+            log.info(" Connected with a valid API key.");
             String stringTemplate = "The JIRA story with acceptance criteria, story context is   {{storyDescription}}";
             PromptTemplate promptTemplate = PromptTemplate.from(stringTemplate);
-            FileUtils.log(" The JIRA story with acceptance criteria, story context is, "+storyDescription);
+            log.info(" The JIRA story with acceptance criteria, story context is, "+storyDescription);
             Map<String, Object> map = new HashMap<>();
             map.put("storyDescription", storyDescription);
             Prompt prompt = promptTemplate.apply(map);
-            FileUtils.log(" Prompting openai to get the in-detailed story .");
+            log.info(" Prompting openai to get the in-detailed story .");
             response = model.generate(prompt.text());
-            FileUtils.log(" Response received from openAI  =, "+response);
+            log.info(" Response received from openAI  =, "+response);
             return response;
-
         } catch (Exception e){
             log.error(" ERROR !!!!! Communication failed with Open AI API's, "+e.getMessage());
             return "ERROR";
@@ -58,18 +56,20 @@ public class OpenAIChatGPTImpl {
     public static String openAICorporateChatModel(String storyDescription, ProgressIndicator indicator){
         String openAIResponseMessage ="";
         //Create Request Model.
-        String jsonData = AppConstants.OPEN_AI_CORPORATE_REQUEST_JSON_TEMPLATE;
+        String jsonData = AppConstants.OPEN_AI_REQUEST_JSON_TEMPLATE;
         ObjectMapper objectMapper = new ObjectMapper();
         try {
-            // OpenAIRequestModel openAIRequestModel = objectMapper.readValue(jsonData, OpenAIRequestModel.class);
+            log.info(" Converting JSON to Java Object --------");
             OpenAICorporateRequestModel openAIRequestModel = objectMapper.readValue(jsonData, OpenAICorporateRequestModel.class);
             openAIRequestModel.getQuery().get(1).setContent(storyDescription);
+            log.info(" Successfully created the request Object ......");
             // covert Java object to JSON strings
             String requestJson = objectMapper.writeValueAsString(openAIRequestModel);
             //Create Connection Object.
             OkHttpWebserviceCall okHttpWebserviceCall =new OkHttpWebserviceCall();
             //Call API.
             String responseBody = okHttpWebserviceCall.makeCorporateOpenAICall(requestJson,indicator);
+            log.info(" Response from  Corporate openAI response  --------" + responseBody);
             //Read Response Body.
             OpenAIResponseModel openAIResponseModel = objectMapper.readValue(responseBody, OpenAIResponseModel.class);
             for(OpenAIGeneralResponseModel.Choice choice: openAIResponseModel.getChoices()){
@@ -80,6 +80,7 @@ public class OpenAIChatGPTImpl {
 
         } catch (Exception  e) {
             indicator.setText(e.getMessage());
+            log.error(e);
             log.error(" openAICorporateChatModel() ERROR !!!!! Communication failed with Open AI API's, "+e.getMessage());
             return "ERROR";
         }

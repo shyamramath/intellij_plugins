@@ -60,8 +60,6 @@ public class JiraAPIUtilities {
 
         indicator.setText(" Reading the file from the location, "+filePath);
         Map<Integer, List<String>> map = new ReadWriteExcelSheet().readExcel(filePath);
-//        logger.info("Successfully read all the data from the spreadsheet ");
-//        logger.info("Contents read from Spreadsheet : "+map);
         
         logger.info("Successfully read all the data from the spreadsheet ");
         logger.info("Contents read from Spreadsheet : "+map);
@@ -69,6 +67,7 @@ public class JiraAPIUtilities {
         int count=0;
         for (Map.Entry<Integer, List<String>> entry : map.entrySet()) {
             logger.info(" Rows read from Spread-sheet ->  ( "+ entry.getKey() + ": " + entry.getValue() +" ) " );
+
             List<String> value = entry.getValue();
             String entry1= value.get(0);
             String subject= value.get(1);
@@ -80,13 +79,12 @@ public class JiraAPIUtilities {
                 logger.info(" Skipping the header row from the spread-sheet ");
                 continue;
             }
-
             JIRARequestModel model = new JIRARequestModel();
             model.setTitleSummary(subject);
 
             //TODO - find a better solution
             if(isSecuredModeON) {
-                indicator.setText(" Secured mode is on, calling OpenAI API ....");
+                indicator.setText(" Secured mode is on, calling Secure OpenAI API ....");
                 logger.info(" Secured mode is on, calling Corporate OpenAI API , ");
                 model.setDescription(OpenAIChatGPTImpl.openAICorporateChatModel(description,indicator));
             }else{
@@ -94,7 +92,6 @@ public class JiraAPIUtilities {
                 indicator.setText(" calling openAI API for story description....");
                 model.setDescription(OpenAIChatGPTImpl.langchainChatModel(description));
             }
-   
             model.setJiraIssueType(issueType);
             model.setKey(boardName);
 

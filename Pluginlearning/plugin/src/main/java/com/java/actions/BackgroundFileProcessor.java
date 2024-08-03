@@ -28,10 +28,7 @@ public class BackgroundFileProcessor extends Task.Backgroundable {
 
     @Override
     public void run(ProgressIndicator indicator) {
-
         logger.info(AppConstants.PLUGIN_NAME +" Plugin initialized ");
-        System.out.println(System.getProperty("JIRA_API_TOKEN"));
-
         indicator.setText("Reading the file ...");
         logger.info(" Checking the env values -- "+System.getenv());
         File file = new File(filePath);
@@ -46,7 +43,7 @@ public class BackgroundFileProcessor extends Task.Backgroundable {
         if (success && envflag) {
             try {
                 indicator.setText(" Creating JIRA stories....... ");
-                String response = JiraAPIUtilities.createStories(filePath,Boolean.getBoolean(System.getenv("IS_SECURED_CHATGPT_MODE")),indicator);
+                String response = JiraAPIUtilities.createStories(filePath,Boolean.valueOf(System.getProperty("IS_SECURED_CHATGPT_MODE")),indicator);
                 indicator.setText(response);
                 this.dialog.logArea.setBackground(Color.DARK_GRAY);
                 this.dialog.logArea.append(response);
@@ -68,7 +65,7 @@ public class BackgroundFileProcessor extends Task.Backgroundable {
 //            );
 //        });
         // Close the dialog
-        dialog.closeDialog();
+//        dialog.closeDialog();
     }
 
 //    void backGroundProcessor(FileUploadDialog dialogue){
