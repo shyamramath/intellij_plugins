@@ -75,7 +75,7 @@ public class OpenAIGeneralResponseModel {
         this.total_execution_time_ms = total_execution_time_ms;
     }
 
-    public class FullModelResponse {
+    public static class FullModelResponse {
         private Choice[] choices;
         private long created;
         private String id;
@@ -204,7 +204,7 @@ public class OpenAIGeneralResponseModel {
         }
     }
 
-    public class ContentFilterResults {
+    public static class ContentFilterResults {
         private FilterResult hate;
         private FilterResult self_harm;
         private FilterResult sexual;
@@ -245,7 +245,7 @@ public class OpenAIGeneralResponseModel {
         }
     }
 
-    public class FilterResult {
+    public static class FilterResult {
         private boolean filtered;
         private String severity;
 
@@ -310,7 +310,7 @@ public class OpenAIGeneralResponseModel {
         }
     }
 
-    public class PromptFilterResult {
+    public static class PromptFilterResult {
         private ContentFilterResults content_filter_results;
         private int prompt_index;
 
@@ -333,7 +333,7 @@ public class OpenAIGeneralResponseModel {
         }
     }
 
-    public class Usage {
+    public static class Usage {
         private int completion_tokens;
         private int prompt_tokens;
         private int total_tokens;
@@ -366,12 +366,10 @@ public class OpenAIGeneralResponseModel {
         }
     }
 
-    public class Query {
+    public static class Query {
         private String content;
+
         private String role;
-
-        // Getters and Setters
-
 
         public String getRole() {
             return role;

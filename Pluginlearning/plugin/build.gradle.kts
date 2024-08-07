@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "com.escuela"
-version = "2.2.2-RELEASE"
+version = "2.3.5-RELEASE"
 
 repositories {
   mavenCentral()
@@ -13,7 +13,6 @@ repositories {
 }
 
 dependencies(){
-//  implementation("com.squareup.okhttp3:okhttp:4.12.0")
   implementation("com.squareup.okhttp3:okhttp:5.0.0-alpha.14")
   implementation("org.dhatim:fastexcel:0.18.0")
   implementation("org.dhatim:fastexcel-reader:0.18.0")
@@ -22,6 +21,7 @@ dependencies(){
   implementation("dev.langchain4j:langchain4j:0.25.0")
   implementation("org.codehaus.jackson:jackson-mapper-asl:1.9.13")
 }
+
 // Configure Gradle IntelliJ Plugin
 // Read more: https://plugins.jetbrains.com/docs/intellij/tools-gradle-intellij-plugin.html
 intellij {
@@ -32,10 +32,12 @@ intellij {
 
 tasks {
   // Set the JVM compatibility versions
+
   withType<JavaCompile> {
     sourceCompatibility = "17"
     targetCompatibility = "17"
   }
+
   withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
     kotlinOptions.jvmTarget = "17"
   }
@@ -49,13 +51,11 @@ tasks {
     certificateChain.set(System.getenv("CERTIFICATE_CHAIN"))
     privateKey.set(System.getenv("PRIVATE_KEY"))
     password.set(System.getenv("PRIVATE_KEY_PASSWORD"))
-
-
   }
 
   publishPlugin {
-//    token.set(System.getenv("PUBLISH_TOKEN"))
     token.set("perm:c2h5YW0ucmFtYXRo.OTItMTA0NTg=.TrbkBpFcXAnA2Ak4VUR6ZtkwxjCxGm")
     channels.set(listOf("beta"))
   }
+
 }

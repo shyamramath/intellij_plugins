@@ -48,13 +48,13 @@ public class OkHttpWebserviceCall {
             OkHttpClient.Builder builder = new OkHttpClient.Builder();
             final SSLSocketFactory sslSocketFactory  =sslContext.getSocketFactory();
             builder.sslSocketFactory(sslSocketFactory,(X509TrustManager) trustAllCert[0]);
-            builder.connectTimeout(20, TimeUnit.SECONDS);
+            builder.connectTimeout(200, TimeUnit.SECONDS);
             builder.readTimeout(30, TimeUnit.SECONDS);
-            builder.writeTimeout(20, TimeUnit.SECONDS);
+            builder.writeTimeout(30, TimeUnit.SECONDS);
             builder.hostnameVerifier(new HostnameVerifier() {
                 @Override
                 public boolean verify(String hostname, SSLSession session) {
-                    return false;
+                    return true;
                 }
             });
             OkHttpClient okHttpClient = builder.build();
@@ -100,11 +100,10 @@ public class OkHttpWebserviceCall {
         okhttp3.RequestBody body = okhttp3.RequestBody.create(openAIRequestModel.toString(), JSON);
         Request request= new Request.Builder().url(AppConstants.CORP_OPEN_AI_API_ENDPOINT).post(body)
                 .addHeader("Authorization", "Bearer "+AppConstants.CORP_OPEN_AI_API_TOKEN).build();
-
         indicator.setText("Calling the corp backend endpoint .... ");
         logger.info("Calling the corp backend endpoint,  "+AppConstants.CORP_OPEN_AI_API_ENDPOINT);
-
         try(Response response =getUnsafeOKhttpClient().newCall(request).execute()){
+            indicator.setText(" Received response from AI models " );
             return response.body().string();
         } catch (Exception e) {
             indicator.setText(" Error : while calling the open AI API .... (" +e.getMessage()  +") " );
@@ -119,55 +118,6 @@ public class OkHttpWebserviceCall {
         }
 
     }
-
-
-//    static OkHttpClient client = new OkHttpClient();
-//    static String runget(String url) throws IOException {
-//        Request request = new Request.Builder()
-//                .url(url)
-//                .build();
-//        try (Response response = client.newCall(request).execute()) {
-//            return response.body().string();
-//        }
-//    }
-
-
-
-//    String post(String url, String json) throws IOException {
-//        RequestBody body = RequestBody.create(json, JSON);
-//        Request request = new Request.Builder()
-//                .url(url)
-//                .post(body)
-//                .build();
-//        try (Response response = client.newCall(request).execute()) {
-//            return response.body().string();
-//        }
-//    }
-
-//    private static final String IMGUR_CLIENT_ID = "...";
-//    private static final MediaType MEDIA_TYPE_PNG = MediaType.parse("image/png");
-
-//    public void run() throws Exception {
-//
-//        // Use the imgur image upload API as documented at https://api.imgur.com/endpoints/image
-//        RequestBody requestBody = new MultipartBody.Builder()
-//                .setType(MultipartBody.FORM)
-//                .addFormDataPart("title", "Square Logo")
-//                .addFormDataPart("image", "logo-square.png",RequestBody.create(MEDIA_TYPE_PNG, new File("website/static/logo-square.png")))
-//                .build();
-//
-//        Request request = new Request.Builder()
-//                .header("Authorization", "Client-ID " + IMGUR_CLIENT_ID)
-//                .url("https://api.imgur.com/3/image")
-//                .post(requestBody)
-//                .build();
-//
-//        try (Response response = client.newCall(request).execute()) {
-//            if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
-//            System.out.println(response.body().string());
-//        }
-//    }
-
 
 
 }

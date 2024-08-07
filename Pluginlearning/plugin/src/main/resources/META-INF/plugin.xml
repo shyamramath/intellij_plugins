@@ -51,8 +51,8 @@
         <![CDATA[
         <h2>Version 2.3.3 - Release Notes</h2>
         <ul>
-            <li> Fixed the SSL failure in the rest calls  ..</li>
-            <li> Removed the multi thread issue..</li>
+            <li> Fixed the Socket error due to connection timeout in API calls ..</li>
+            <li> Added more logs to debug if in case of any communication exception ..</li>
         </ul>
         ]]>
     </change-notes>

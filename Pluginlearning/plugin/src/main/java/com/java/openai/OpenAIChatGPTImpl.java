@@ -71,9 +71,11 @@ public class OpenAIChatGPTImpl {
             String responseBody = okHttpWebserviceCall.makeCorporateOpenAICall(requestJson,indicator);
             log.info(" Response from  Corporate openAI response  --------" + responseBody);
             //Read Response Body.
-            OpenAIResponseModel openAIResponseModel = objectMapper.readValue(responseBody, OpenAIResponseModel.class);
-            for(OpenAIGeneralResponseModel.Choice choice: openAIResponseModel.getChoices()){
-                openAIResponseMessage=choice.getMessage().getContent();
+            OpenAIGeneralResponseModel openAIResponseModel = objectMapper.readValue(responseBody, OpenAIGeneralResponseModel.class);
+            for(OpenAIGeneralResponseModel.Choice choice: openAIResponseModel.getFull_model_response().getChoices()){
+                if(choice!=null) {
+                    openAIResponseMessage = choice.getMessage().getContent();
+                }
             }
             //Return Response.
             return openAIResponseMessage;
@@ -86,6 +88,7 @@ public class OpenAIChatGPTImpl {
         }
     }
 
+    @Deprecated
     public static String openAIcall(String storyDescription){
         String openAIResponseMessage ="";
         //Create Request Model.
