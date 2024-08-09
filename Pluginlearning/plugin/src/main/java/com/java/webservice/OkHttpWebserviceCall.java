@@ -7,6 +7,7 @@ import com.java.models.OpenAICorporateRequestModel;
 import com.java.utils.FileUtils;
 import com.java.utils.JiraAPIUtilities;
 import okhttp3.*;
+import okhttp3.logging.HttpLoggingInterceptor;
 
 import javax.net.ssl.*;
 import java.io.IOException;
@@ -57,7 +58,12 @@ public class OkHttpWebserviceCall {
                     return true;
                 }
             });
-            OkHttpClient okHttpClient = builder.build();
+
+//            HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+//            logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+
+            OkHttpClient okHttpClient = builder
+                                        .build();
             return  okHttpClient;
         } catch (NoSuchAlgorithmException | KeyManagementException e) {
             throw new RuntimeException(e);
@@ -102,6 +108,7 @@ public class OkHttpWebserviceCall {
                 .addHeader("Authorization", "Bearer "+AppConstants.CORP_OPEN_AI_API_TOKEN).build();
         indicator.setText("Calling the corp backend endpoint .... ");
         logger.info("Calling the corp backend endpoint,  "+AppConstants.CORP_OPEN_AI_API_ENDPOINT);
+
         try(Response response =getUnsafeOKhttpClient().newCall(request).execute()){
             indicator.setText(" Received response from AI models " );
             return response.body().string();

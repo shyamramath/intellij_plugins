@@ -14,6 +14,7 @@ repositories {
 
 dependencies(){
   implementation("com.squareup.okhttp3:okhttp:5.0.0-alpha.14")
+  implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
   implementation("org.dhatim:fastexcel:0.18.0")
   implementation("org.dhatim:fastexcel-reader:0.18.0")
   implementation("com.konghq:unirest-java:3.14.1")
